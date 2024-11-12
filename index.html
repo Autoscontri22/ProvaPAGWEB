@@ -5,23 +5,24 @@
     <title>Questionario</title>
     <script>
         function handleSubmit(event) {
-            event.preventDefault(); // Evita l'invio del form al server
+            event.preventDefault(); // Blocca l'invio del form al server
 
-            // Controlla se la casella di "serafino" è selezionata
+            // Verifica se l'utente ha selezionato "serafino"
             const serafinoChecked = document.getElementById("serafino").checked;
 
-            // Se "serafino" è selezionato, apri una nuova pagina
             if (serafinoChecked) {
-                window.location.href = "nuova_pagina.html"; // Sostituisci con la tua pagina
+                window.location.href = "serafino.html"; // Sostituisci con la tua pagina
             } else {
                 alert("Risposta inviata senza selezione di serafino.");
             }
+
+            return false; // Assicura che il form non venga mai inviato
         }
     </script>
 </head>
 <body>
     <h2>Rispondi alle seguenti domande e clicca su Invia per spedire i risultati.</h2>
-    <form onsubmit="handleSubmit(event)">
+    <form onsubmit="return handleSubmit(event)">
         <fieldset>
             <legend>1. Quali tra i seguenti è il più coniglio (possibile scegliere anche più di una risposta)?</legend>
             <input type="checkbox" id="jacopo" name="coniglio" value="jacopo">
