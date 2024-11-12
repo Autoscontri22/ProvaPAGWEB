@@ -3,10 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Questionario</title>
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Evita l'invio del form
+            const formData = new FormData(event.target);
+            const results = {};
+            
+            // Estrae le risposte dai checkbox
+            results.coniglio = formData.getAll("coniglio");
+            // Estrae la risposta dalla select
+            results.goat = formData.get("goat");
+            
+            // Visualizza i risultati
+            const resultContainer = document.getElementById("results");
+            resultContainer.innerHTML = `
+                <h3>Risposte degli Utenti:</h3>
+                <p><strong>Coniglio:</strong> ${results.coniglio.join(", ")}</p>
+                <p><strong>GOAT:</strong> ${results.goat}</p>
+            `;
+        }
+    </script>
 </head>
 <body>
     <h2>Rispondi alle seguenti domande e clicca su Invia per spedire i risultati.</h2>
-    <form action="#" method="post">
+    <form action="#" method="post" onsubmit="handleFormSubmit(event)">
         <fieldset>
             <legend>1. Quali tra i seguenti è il più coniglio (possibile scegliere anche più di una risposta)?</legend>
             <input type="checkbox" id="jacopo" name="coniglio" value="jacopo">
@@ -30,5 +50,8 @@
         <button type="submit">Invia</button>
         <button type="reset">Annulla</button>
     </form>
+
+    <div id="results"></div> <!-- Contenitore per visualizzare le risposte -->
 </body>
 </html>
+
