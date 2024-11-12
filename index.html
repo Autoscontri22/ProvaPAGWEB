@@ -14,12 +14,12 @@
             // Estrae la risposta dalla select
             results.goat = formData.get("goat");
             
-            // Visualizza i risultati
+            // Visualizza i risultati, inclusi i numeri delle domande
             const resultContainer = document.getElementById("results");
             resultContainer.innerHTML = `
                 <h3>Risposte degli Utenti:</h3>
-                <p><strong>Coniglio:</strong> ${results.coniglio.join(", ")}</p>
-                <p><strong>GOAT:</strong> ${results.goat}</p>
+                <p><strong>1. Quali tra i seguenti è il più coniglio:</strong> ${results.coniglio.join(", ")}</p>
+                <p><strong>2. Chi è il GOAT:</strong> ${results.goat}</p>
             `;
         }
     </script>
@@ -54,4 +54,3 @@
     <div id="results"></div> <!-- Contenitore per visualizzare le risposte -->
 </body>
 </html>
-
