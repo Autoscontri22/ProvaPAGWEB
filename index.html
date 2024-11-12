@@ -4,24 +4,44 @@
     <meta charset="UTF-8">
     <title>Questionario</title>
     <script>
+        // Funzione per gestire l'invio del form e salvare le risposte
         function handleFormSubmit(event) {
             event.preventDefault(); // Evita l'invio del form al server
             const formData = new FormData(event.target);
             const results = {};
-            
-            // Estrae le risposte dai checkbox
+
+            // Raccogli le risposte dai checkbox e dalla select
             results.coniglio = formData.getAll("coniglio");
-            // Estrae la risposta dalla select
             results.goat = formData.get("goat");
-            
-            // Visualizza i risultati, inclusi i numeri delle domande
+
+            // Salva le risposte in Local Storage
+            localStorage.setItem("questionarioRisposte", JSON.stringify(results));
+
+            // Visualizza le risposte salvate
+            mostraRisposte(results);
+        }
+
+        // Funzione per mostrare le risposte salvate
+        function mostraRisposte(risposte) {
             const resultContainer = document.getElementById("results");
             resultContainer.innerHTML = `
                 <h3>Risposte degli Utenti:</h3>
-                <p><strong>1. Quali tra i seguenti è il più coniglio:</strong> ${results.coniglio.join(", ")}</p>
-                <p><strong>2. Chi è il GOAT:</strong> ${results.goat}</p>
+                <p><strong>1. Quali tra i seguenti è il più coniglio:</strong> ${risposte.coniglio.join(", ")}</p>
+                <p><strong>2. Chi è il GOAT:</strong> ${risposte.goat}</p>
             `;
         }
+
+        // Funzione per caricare le risposte salvate al caricamento della pagina
+        function caricaRisposteSalvate() {
+            const risposteSalvate = localStorage.getItem("questionarioRisposte");
+            if (risposteSalvate) {
+                const risposte = JSON.parse(risposteSalvate);
+                mostraRisposte(risposte);
+            }
+        }
+
+        // Chiama la funzione per caricare le risposte salvate quando la pagina viene caricata
+        window.onload = caricaRisposteSalvate;
     </script>
 </head>
 <body>
@@ -51,6 +71,7 @@
         <button type="reset">Annulla</button>
     </form>
 
-    <div id="results"></div> <!-- Contenitore per visualizzare le risposte -->
+    <div id="results"></div> <!-- Contenitore per visualizzare le risposte salvate -->
 </body>
 </html>
+
